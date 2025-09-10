@@ -1,4 +1,4 @@
-<h1 align="center">OpenAI Codex CLI</h1>
+<h1 align="center">OpenAI Codex CLI Fork</h1>
 
 <p align="center"><code>npm i -g @openai/codex</code><br />or <code>brew install codex</code></p>
 
@@ -35,7 +35,8 @@ codex
 <details>
 <summary>You can also go to the <a href="https://github.com/openai/codex/releases/latest">latest GitHub Release</a> and download the appropriate binary for your platform.</summary>
 
-Each GitHub Release contains many executables, but in practice, you likely want one of these:
+Each GitHub Release contains many executables, but in practice, you likely want
+one of these:
 
 - macOS
   - Apple Silicon/arm64: `codex-aarch64-apple-darwin.tar.gz`
@@ -44,7 +45,9 @@ Each GitHub Release contains many executables, but in practice, you likely want 
   - x86_64: `codex-x86_64-unknown-linux-musl.tar.gz`
   - arm64: `codex-aarch64-unknown-linux-musl.tar.gz`
 
-Each archive contains a single entry with the platform baked into the name (e.g., `codex-x86_64-unknown-linux-musl`), so you likely want to rename it to `codex` after extracting it.
+Each archive contains a single entry with the platform baked into the name
+(e.g., `codex-x86_64-unknown-linux-musl`), so you likely want to rename it to
+`codex` after extracting it.
 
 </details>
 
@@ -54,18 +57,28 @@ Each archive contains a single entry with the platform baked into the name (e.g.
   <img src="./.github/codex-cli-login.png" alt="Codex CLI login" width="80%" />
   </p>
 
-Run `codex` and select **Sign in with ChatGPT**. We recommend signing into your ChatGPT account to use Codex as part of your Plus, Pro, Team, Edu, or Enterprise plan. [Learn more about what's included in your ChatGPT plan](https://help.openai.com/en/articles/11369540-codex-in-chatgpt).
+Run `codex` and select **Sign in with ChatGPT**. We recommend signing into your
+ChatGPT account to use Codex as part of your Plus, Pro, Team, Edu, or Enterprise
+plan.
+[Learn more about what's included in your ChatGPT plan](https://help.openai.com/en/articles/11369540-codex-in-chatgpt).
 
-You can also use Codex with an API key, but this requires [additional setup](./docs/authentication.md#usage-based-billing-alternative-use-an-openai-api-key). If you previously used an API key for usage-based billing, see the [migration steps](./docs/authentication.md#migrating-from-usage-based-billing-api-key). If you're having trouble with login, please comment on [this issue](https://github.com/openai/codex/issues/1243).
+You can also use Codex with an API key, but this requires
+[additional setup](./docs/authentication.md#usage-based-billing-alternative-use-an-openai-api-key).
+If you previously used an API key for usage-based billing, see the
+[migration steps](./docs/authentication.md#migrating-from-usage-based-billing-api-key).
+If you're having trouble with login, please comment on
+[this issue](https://github.com/openai/codex/issues/1243).
 
 ### Model Context Protocol (MCP)
 
-Codex CLI supports [MCP servers](./docs/advanced.md#model-context-protocol-mcp). Enable by adding an `mcp_servers` section to your `~/.codex/config.toml`.
-
+Codex CLI supports [MCP servers](./docs/advanced.md#model-context-protocol-mcp).
+Enable by adding an `mcp_servers` section to your `~/.codex/config.toml`.
 
 ### Configuration
 
-Codex CLI supports a rich set of configuration options, with preferences stored in `~/.codex/config.toml`. For full configuration options, see [Configuration](./docs/config.md).
+Codex CLI supports a rich set of configuration options, with preferences stored
+in `~/.codex/config.toml`. For full configuration options, see
+[Configuration](./docs/config.md).
 
 ---
 
@@ -99,4 +112,3 @@ Codex CLI supports a rich set of configuration options, with preferences stored 
 ## License
 
 This repository is licensed under the [Apache-2.0 License](LICENSE).
-
