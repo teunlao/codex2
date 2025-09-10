@@ -203,6 +203,21 @@ jobs:
           mv "${GITHUB_WORKSPACE}"/dist/npm/*.tgz \
              "${GITHUB_WORKSPACE}/dist/npm/codex-npm-${{ steps.release_name.outputs.name }}.tgz"
 
+      - name: Setup Node for npm publish
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
+      - name: Publish to npm (codex2)
+        if: ${{ !contains(steps.release_name.outputs.name, '-') }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          npm publish "dist/npm/codex-npm-${{ steps.release_name.outputs.name }}.tgz" --access public
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
