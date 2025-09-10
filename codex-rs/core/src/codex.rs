@@ -159,7 +159,7 @@ pub(crate) const SUBMISSION_CHANNEL_CAPACITY: usize = 64;
 
 // Model-formatting limits: clients get full streams; oonly content sent to the model is truncated.
 pub(crate) const MODEL_FORMAT_MAX_BYTES: usize = 10 * 1024; // 10 KiB
-pub(crate) const MODEL_FORMAT_MAX_LINES: usize = 256; // lines
+pub(crate) const MODEL_FORMAT_MAX_LINES: usize = 1000; // lines
 pub(crate) const MODEL_FORMAT_HEAD_LINES: usize = MODEL_FORMAT_MAX_LINES / 2;
 pub(crate) const MODEL_FORMAT_TAIL_LINES: usize = MODEL_FORMAT_MAX_LINES - MODEL_FORMAT_HEAD_LINES; // 128
 pub(crate) const MODEL_FORMAT_HEAD_BYTES: usize = MODEL_FORMAT_MAX_BYTES / 2;
@@ -3041,8 +3041,9 @@ mod tests {
 
     #[test]
     fn model_truncation_head_tail_by_lines() {
-        // Build 400 short lines so line-count limit, not byte budget, triggers truncation
-        let lines: Vec<String> = (1..=400).map(|i| format!("line{i}")).collect();
+        // Build more lines than the model line cap so line-count limit, not byte budget, triggers truncation
+        let total_lines = MODEL_FORMAT_MAX_LINES + 144; // ensure truncation and stable omitted count
+        let lines: Vec<String> = (1..=total_lines).map(|i| format!("line{i}")).collect();
         let full = lines.join("\n");
 
         let exec = ExecToolCallOutput {
@@ -3056,8 +3057,8 @@ mod tests {
         let out = format_exec_output_str(&exec);
 
         // Expect elision marker with correct counts
-        let omitted = 400 - MODEL_FORMAT_MAX_LINES; // 144
-        let marker = format!("\n[... omitted {omitted} of 400 lines ...]\n\n");
+        let omitted = total_lines - MODEL_FORMAT_MAX_LINES; // 144
+        let marker = format!("\n[... omitted {omitted} of {total_lines} lines ...]\n\n");
         assert!(out.contains(&marker), "missing marker: {out}");
 
         // Validate head and tail
@@ -3072,7 +3073,7 @@ mod tests {
             .join("\n");
         assert!(head.starts_with(&expected_head), "head mismatch");
 
-        let expected_tail: String = ((400 - MODEL_FORMAT_TAIL_LINES + 1)..=400)
+        let expected_tail: String = ((total_lines - MODEL_FORMAT_TAIL_LINES + 1)..=total_lines)
             .map(|i| format!("line{i}"))
             .collect::<Vec<_>>()
             .join("\n");

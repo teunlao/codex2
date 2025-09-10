@@ -30,8 +30,8 @@ use crate::proto::ProtoCli;
     subcommand_negates_reqs = true,
     // The executable is sometimes invoked via a platform‑specific name like
     // `codex-x86_64-unknown-linux-musl`, but the help output should always use
-    // the generic `codex` command name that users run.
-    bin_name = "codex"
+    // the generic command name that users run.
+    bin_name = "codex2"
 )]
 struct MultitoolCli {
     #[clap(flatten)]
